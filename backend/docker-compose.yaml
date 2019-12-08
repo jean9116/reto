@@ -2,15 +2,15 @@ version: '3.1'
 
 services:
 
-  node:
-    image: node:10.15.3-alpine
+  wordpress:
+    image: wordpress:php7.2-apache
     ports:
-      - 5000
+      - 8080:80
     environment:
-      NODE_DB_HOST: mysql
-      NODE_DB_USER: root
-      NODE_DB_PASSWORD: root
-      NODE_DB_NAME: node
+      WORDPRESS_DB_HOST: mysql
+      WORDPRESS_DB_USER: root
+      WORDPRESS_DB_PASSWORD: root
+      WORDPRESS_DB_NAME: wordpress
     links:
       - mysql:mysql
 
@@ -19,8 +19,7 @@ services:
     image: mysql:8.0.13
     command: --default-authentication-plugin=mysql_native_password
     environment:
-      MYSQL_DATABASE: node
+      MYSQL_DATABASE: wordpress
       MYSQL_ROOT_PASSWORD: root
     volumes:
       - ~/docker/mysql-data:/var/lib/mysql
-
